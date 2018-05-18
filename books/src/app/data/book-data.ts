@@ -11,7 +11,7 @@ export const BOOKS: Book[] = [
   },
   {
     id: randomId(),
-    title: 'where the red fern grows',
+    title: 'wHERE the red fern grows',
     author: 'wilson rawls',
     publisher: 'Doubleday',
     year: 1961,
@@ -19,7 +19,7 @@ export const BOOKS: Book[] = [
   },
   {
     id: randomId(),
-    title: 'a fire upon the deep',
+    title: 'a fIRE upon the deep',
     author: 'vernor vinge',
     publisher: 'Tor Books',
     year: 1992,

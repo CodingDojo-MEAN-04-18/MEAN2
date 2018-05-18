@@ -13,7 +13,7 @@
     <tbody>
       <tr *ngFor='let book of books' (click)='onSelect(book)'>
         <td>{{ book.id }}</td>
-        <td>{{ book.title }}</td>
+        <td>{{ book.title | titleize:false}}</td>
         <td>{{ book.year }}</td>
         <td>{{ book.author }}</td>
         <td>Future Actions</td>
