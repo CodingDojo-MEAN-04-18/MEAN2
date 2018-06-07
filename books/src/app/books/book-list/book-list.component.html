@@ -1,7 +1,10 @@
-<app-book-new (newBook)='addBook($event)'>
-</app-book-new>
+<!-- <app-book-new (newBook)='addBook($event)'>
+</app-book-new> -->
 
 <section>
+  <aside *ngIf='errorMessage'>
+    <p> {{errorMessage}}</p>
+  </aside>
   <table>
     <tr>
       <th>ID</th>
@@ -11,15 +14,17 @@
       <th>Actions</th>
     </tr>
     <tbody>
-      <tr *ngFor='let book of books' (click)='onSelect(book)'>
+      <tr *ngFor='let book of books' (click)='onSelect(book)' [routerLink]='book.id'>
         <td>{{ book.id }}</td>
         <td>{{ book.title | titleize:false}}</td>
         <td>{{ book.year }}</td>
         <td>{{ book.author }}</td>
-        <td>Future Actions</td>
+        <td (click)='onBubble($event)'>
+          <button (click)='onDelete(book)'>Delete</button>
+        </td>
       </tr>
     </tbody>
   </table>
 </section>
 
-<app-book-details [book]='selectedBook'></app-book-details>
+<!-- <app-book-details [book]='selectedBook'></app-book-details> -->

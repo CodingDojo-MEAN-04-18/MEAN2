@@ -4,6 +4,7 @@ import { BOOKS } from '../../data/book-data';
 import { Book } from '../../book';
 
 import { TitleizePipe } from '../../titleize.pipe';
+import { BookService } from '../../services';
 
 @Component({
   selector: 'app-book-list',
@@ -12,16 +13,23 @@ import { TitleizePipe } from '../../titleize.pipe';
   providers: [TitleizePipe],
 })
 export class BookListComponent implements OnInit {
-  books: Book[] = BOOKS;
+  books: Book[] = [];
   selectedBook: Book;
+  errorMessage: string;
 
-  constructor(private titlize: TitleizePipe) {}
+  constructor(
+    private titlize: TitleizePipe,
+    private readonly bookService: BookService
+  ) {}
 
   ngOnInit() {
     console.log('inside ng on init');
 
-    this.books.forEach(book => {
-      book.author = this.titlize.transform(book.author);
+    this.bookService.getBooks().subscribe(books => {
+      this.books = books;
+      this.books.forEach(book => {
+        book.author = this.titlize.transform(book.author);
+      });
     });
   }
 
@@ -40,5 +48,25 @@ export class BookListComponent implements OnInit {
   addBook(book: Book) {
     console.log('adding book', book);
     this.books.push(book);
+  }
+
+  onBubble(event: Event) {
+    event.stopPropagation();
+  }
+
+  onDelete(book: Book) {
+    console.log('removing book', book);
+    this.bookService.removeBook(book.id).subscribe(
+      removedBook => {
+        this.books = this.books.filter(b => b.id !== book.id);
+      },
+      error => {
+        this.errorMessage = 'There was an error removing the book';
+
+        setTimeout(() => {
+          this.errorMessage = null;
+        }, 3000);
+      }
+    );
   }
 }
