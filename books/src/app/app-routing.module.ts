@@ -3,12 +3,12 @@ import { NgModule } from '@angular/core';
 
 import * as fromBooks from './books';
 import { NotFoundComponent } from './not-found/not-found.component';
+import { HomeComponent } from './home/home.component';
 
 const routes: Routes = [
   {
     path: '',
-    redirectTo: 'books',
-    pathMatch: 'full',
+    component: HomeComponent,
   },
   {
     path: 'books',
